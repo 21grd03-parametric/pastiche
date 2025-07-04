@@ -8,7 +8,7 @@ import rrtm.input
 import rrtm.output
 
 
-RRTM_EX = '/home/bel8/src/RRTM_LW_trilli/rrtm_v3.3.1_linux_ifort'
+RRTM_EX = '/content/RRTM_LW/rrtm_v3.3.1_linux_ifx'
 # RRTM_EX = '/home/bel8/src/RRTMG_LW/rrtmg_lw_v5.00_linux_intel'
 logger.info('using %s as RRTM executable', RRTM_EX)
 
