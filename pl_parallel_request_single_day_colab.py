@@ -1,0 +1,116 @@
+import sys
+import os
+import datetime
+import cdsapi
+import multiprocessing.dummy
+import json
+from google.colab import userdata
+api_url = userdata.get('cdsapi_url')
+api_key = userdata.get('cdsapi_key')
+
+
+USE_TMY = True
+ALL_HOURS = [f"{x:02d}:00" for x in range(24)]
+
+
+def pl(d):
+    """
+    pressure levels request
+    """
+
+    global config
+    year = d.year
+    month = d.month
+    day = d.day
+    c = cdsapi.Client(key=f"{api_key}", url=api_url)
+    dataset = "reanalysis-era5-pressure-levels"
+    request = {
+        "product_type": "reanalysis",
+        "format": "netcdf",
+        "variable": [
+            "geopotential",
+            "ozone_mass_mixing_ratio",
+            "relative_humidity",
+            "specific_humidity",
+            "temperature",
+            "fraction_of_cloud_cover",
+            "specific_cloud_ice_water_content",
+            "specific_cloud_liquid_water_content",
+        ],
+        "pressure_level": [
+            "1",
+            "2",
+            "3",
+            "5",
+            "7",
+            "10",
+            "20",
+            "30",
+            "50",
+            "70",
+            "100",
+            "125",
+            "150",
+            "175",
+            "200",
+            "225",
+            "250",
+            "300",
+            "350",
+            "400",
+            "450",
+            "500",
+            "550",
+            "600",
+            "650",
+            "700",
+            "750",
+            "775",
+            "800",
+            "825",
+            "850",
+            "875",
+            "900",
+            "925",
+            "950",
+            "975",
+            "1000",
+        ],
+        "year": str(year),
+        "month": f"{month:02}",
+        "day": f"{day:02}",
+        "time": config["hours"],
+        "area": config["area"],
+        "data_format": "netcdf_legacy",
+    }
+    target = (
+        f"./wp2/in/era5/{config['label']}/TMY/{month:02}/pl_{year}{month:02}{day:02}.nc"
+    )
+
+    # do nothing if file was downloaded already
+    if not os.path.isfile(target):
+        c.retrieve(dataset, request, target)
+    else:
+        print(target + " exists: skippinpg")
+
+
+if __name__ == "__main__":
+    """
+    source ./.venv/bin/activate
+    python3 pl_parallel_request_single_day.py ./config/las_vegas.json
+    """
+
+    config = json.load(open(sys.argv[1]))
+    for month in range(1, 13):
+        os.makedirs(f"./wp2/in/era5/{config['label']}/TMY/{month:02}", exist_ok=True)
+
+    dates = config["dates"]
+
+    ds = []
+    for date in dates:
+        try:
+            ds.append(datetime.datetime.strptime(date, "%Y%m%d"))
+        except ValueError:
+            print(f"Ignoring invalid: {date}")
+    with multiprocessing.dummy.Pool(5) as pool:
+        result_pl = pool.map(pl, ds)
