@@ -4,21 +4,21 @@ Claudio Belotti (CNR-INO, Italy), claudio.belotti@cnr.it
 Lorenzo Pattelli (INRiM, Italy), l.pattelli@inrim.it
 
 
-    This file is part of PASTICCIO:
-    the PaRaMetriC Atmospheric Spectral Tool for Irradiance CalCulation, Infrared Output.
+    This file is part of PASTICHE:
+    the PaRaMetriC Atmospheric Spectral Tool for Irradiance Calculation using Hourly ERA5 data.
 
-    PASTICCIO is free software: you can redistribute it and/or modify
+    PASTICHE is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    PASTICCIO is distributed in the hope that it will be useful,
+    PASTICHE is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with PASTICCIO.  If not, see <http://www.gnu.org/licenses/>.
+    along with PASTICHE.  If not, see <http://www.gnu.org/licenses/>.
 
 
 pl_parallel_request_single_day_colab.py
