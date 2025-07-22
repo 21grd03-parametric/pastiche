@@ -38,7 +38,7 @@ The output fluxes are defined over the `time`, `latitude`, `longitude`, and `lw_
 ### TMY
 
 * Denver, USA – 9 points (3 lat × 3 lon), 12 months, hourly
-* Las Vegas, USA – 9 points, 12 months, hourly
+* Las Vegas, USA – 9 points (3 lat × 3 lon), 12 months, hourly
 * Madrid, Spain – 20 points (4 lat × 5 lon), 12 months, hourly
 * Paris, France – 4 points (2 lat × 2 lon), 12 months, hourly
 * Rome, Italy – 4 points (2 lat × 2 lon), 12 months, hourly
@@ -49,9 +49,9 @@ The output fluxes are defined over the `time`, `latitude`, `longitude`, and `lw_
 ### June, July, August (JJA) 2023
 
 * Las Vegas, USA – 9 points (3 lat × 3 lon), 3 months (JJA), hourly
-* Madrid, Spain – 20 points (4 lat × 5 lon), JJA, hourly
-* Riyadh, Saudi Arabia – 9 points (3 lat × 3 lon), JJA, hourly
-* Turin, Italy – 4 points (2 lat × 2 lon), JJA, hourly
+* Madrid, Spain – 20 points (4 lat × 5 lon), 3 months (JJA), hourly
+* Riyadh, Saudi Arabia – 9 points (3 lat × 3 lon), 3 months (JJA), hourly
+* Turin, Italy – 4 points (2 lat × 2 lon), 3 months (JJA), hourly
 
 ### Continental Europe
 
