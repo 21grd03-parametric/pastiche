@@ -1,92 +1,185 @@
-# PaRaMetriC WP2 Colab
+# PASTICHE
+## The PaRaMetriC Atmospheric Spectral Tool for Irradiance Calculation using Hourly ERA5 data.
 
+# 📗 Table of Contents
 
+* [📖 About the Project](#about-project) 
+  * [🗃 Available Datasets](#available-datasets)
+  * [🧩 Data Structure](#datastructure)
+  * [⚠ Use Note and Warning](#use-note-and-warning)
+  * [📚 References](#references)
+* [💻 Getting Started](#getting-started)
+* [👥 Authors](#authors)
+* [🔭 Future Features](#future-features)
+* [❓ FAQ (OPTIONAL)](#faq)
+* [📝 License](#license)
+* [📜 History](#history)
 
-## Getting started
+<!-- PROJECT DESCRIPTION -->
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+# 📖 PaRaMetriC <a name="about-project"></a>
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+[PaRaMetriC](https://parametric.inrim.it/) a Metrological framework for passive radiative cooling technologies. A Joint Research Project within the European Partnership on Metrology Programme.
 
-## Add your files
+This is the software used to **...**
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+The long-wave radiation fluxes were calculated using RRM (Mlawer, 1997) using atmospheric states derived from ERA5 reanalysis (Hersbach, 2023).
+
+RRTM calculates fluxes along the vertical dimension on 16 contiguous bands in the longwave (infrared) from 3 to 1000 μm in wavelength.
+
+ERA 5 data points are defined on a regular lat/lon grid with resolution of 0.25° and over 37 fixed pressure level points.
+
+The calculated fluxes therefore, are defined over the (time, latitude, longitude, lw_bands) dimensions.
+
+## 🗃️ Available Datasets <a name="available-datasets"></a>
+
+**Note:** if you are not familiar with netCDF format a good starting point is to download NASA's [Panoply](https://www.giss.nasa.gov/tools/panoply/) to explore, plot and export the data.
+
+### TMY
+
+* Denver, U.S.A. 9 data points (i.e. 3 lats x 3 lons), TMY (12 months), hourly
+* Las Vegas, U.S.A. 9 data points (i.e. 3 lats x 3 lons), TMY (12 months), hourly
+* Madrid, Spain 20 data points (i.e. 4 lats x 5 lons), TMY (12 months), hourly
+* Paris, France 4 data points (i.e. 2 lats x 2 lons), TMY (12 months), hourly
+* Rome, Italy 4 data points (i.e. 2 lats x 2 lons), TMY (12 months), hourly
+* Turin, Italy 4 data points (i.e. 2 lats x 2 lons), TMY (12 months), hourly
+* Singapore 9 data points (i.e. 3 lats x 3 lons), TMY (12 months), hourly
+* Tokyo, Japan tbc, 12 months, , TMY (12 months), hourly
+
+### June, July, August (JJA) 2023
+
+* Las Vegas, U.S.A. 9 data points (i.e. 3 lats x 3 lons), JJA 2023 (3 months), hourly
+* Madrid, Spain 20 data points (i.e. 4 lats x 5 lons), JJA 2023 (3 months), hourly
+* Riyadh, Saudi Arabia 9 data points (i.e. 3 lats x 3 lons), JJA 2023 (3 months), hourly
+* Turin, Italy 4 data points (i.e. 2 lats x 2 lons), JJA 2023 (3 months), hourly
+
+### Continental Europe
+
+* France, 21 lats x 21 lons (5.25◦ × 5.25◦), 2019--2023 (60 months),  6-hourly
+* Spain, 21 lats x 21 lons (5.25◦ × 5.25◦), 2019--2023 (60 months),  6-hourly
+
+### 2 days over 35 years
+
+* Lleida, Spain 4 data points (i.e. 2 lats x 2 lons), 31 July and 1 Aug 1989–-2023 (70 days), hourly
+* Sesto Fiorentino, Italy 12 data points (i.e. 3 lats x 4 lons), 31 July and 1 Aug 1989–-2023 (70 days), hourly
+
+## 🧩 Data Structure <a name="datastructure"></a>
+
+Each netCDF4 file contains the following calculated variables:
+
+* sd(time, latitude, longitude, lw_bands),  "RRTM-calculated surface downward long-wave radiation flux", sd:units = "Wm$^{-2}$";
+* su(time, latitude, longitude, lw_bands), "RRTM-calculated surface upward long-wave radiation flux", su:units = "Wm$^{-2}$";
+* sn(time, latitude, longitude, lw_bands), "RRTM-calculated surface net long-wave radiation flux", sn:units = "Wm$^{-2}$";
+* tu(time, latitude, longitude, lw_bands), "RRTM-calculated TOA upward long-wave radiation flux", tu:units = "Wm$^{-2}$";
+* r (time, latitude, longitude);  "Relative humidity calculated from 2m-temperature and 2m-dewpoint temperature", r:units = "%";
+
+**Note:** fluxes are given overt the whole infrared and the 16 bands, the band limits are defined in the variable "lw_band_limits" the m.u. is cm$^{-1}$ (i.e. the inverse of the wavelength).
+
+The following variables are copied from ERA5 fields:
+**Note: these are for internal use, are we allowed to redistribute?**
+
+* t2m(time, latitude, longitude) "2 metre temperature";
+* skt(time, latitude, longitude) "Skin temperature";
+* cbh(time, latitude, longitude) "Cloud base height";
+* tcc(time, latitude, longitude) "cloud_area_fraction";
+* tcwv(time, latitude, longitude) "Total column vertically-integrated water vapour";
+* u10(time, latitude, longitude) "10 metre U wind component";
+* v10(time, latitude, longitude) "10 metre V wind component";
+* stl3(time, latitude, longitude) "Soil temperature level 3";
+* stl4(time, latitude, longitude) "Soil temperature level 4";
+* avg_sdlwrf(time, latitude, longitude) "Time-mean surface downward long-wave radiation flux";
+* avg_sdlwrfcs(time, latitude, longitude) "Time-mean surface downward long-wave radiation flux, clear sky";
+* avg_sdswrf(time, latitude, longitude) "Time-mean surface downward short-wave radiation flux";
+* avg_sdswrfcs(time, latitude, longitude) "Time-mean surface downward short-wave radiation flux, clear sky";
+* avg_snlwrf(time, latitude, longitude) "Time-mean surface net long-wave radiation flux";
+* avg_snlwrfcs(time, latitude, longitude) "Time-mean surface net long-wave radiation flux, clear sky";
+* avg_snswrf(time, latitude, longitude) "Time-mean surface net short-wave radiation flux";
+* avg_snswrfcs(time, latitude, longitude) "Time-mean surface net short-wave radiation flux, clear sky";
+* avg_tnlwrf(time, latitude, longitude) "Time-mean top net long-wave radiation flux";
+* avg_tnlwrfcs(time, latitude, longitude) "Time-mean top net long-wave radiation flux, clear sky"
+
+## ⚠ Use Note and Warning <a name="use-note-and-warning"></a>
+
+1. ERA5 fluxes are accumulated over one hour (and then divided by 3600s), we assume them as representative of the instantaneous value at time t-0.5h (e.g. flux at 06:00 is representative of flux at 05:30).
+2. ERA5 fluxes should be compared with RRTM band 0 values (i.e. total infrared).
+3. NaN values: some values are NaN this is the case for pixels on the sea (e.g. north-west corner of the France dataset) but unfortunately there are also few cases where RRTM fails: I'm still investigating the reason for that.
+
+## 📚 References <a name="references"></a>
+
+* Mlawer, E. J., Taubman, S. J., Brown, P. D., Iacono, M. J., Clough, S. A., Radiative transfer for inhomogeneous atmospheres: RRTM, a validated correlated-k model for the longwave, Journal of Geophysical Research: Atmospheres 102 (D14) (1997) 16663–16682, . DOI:10.1029/97JD00237.
+* Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2023): ERA5 hourly data on single levels from 1940 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.adbb2d47 (Accessed on 2023 and 2024); ERA5 hourly data on pressure levels from 1940 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS), DOI: 10.24381/cds.bd0915c6 (Accessed on 2023 and 2024)
+* Beck, H. E., T. R. McVicar, N. Vergopolan, A. Berg, N. J. Lutsko, A. Dufour, Z. Zeng, X. Jiang, A. I. J. M. van Dijk, and D. G. Miralles. High-resolution (1 km) Köppen-Geiger maps for 1901–2099 based on constrained CMIP6 projections, Scientific Data 10, 724 (2023)
+
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+> Describe how a new developer could make use of your project.
+
+To get a local copy up and running, follow these steps.
 
 ```
-cd existing_repo
-git remote add origin https://baltig.cnr.it/claudio.belotti/parametric-wp2-colab.git
-git branch -M main
-git push -uf origin main
+git clone https://github.com/21grd03-parametric/pastiche.git
 ```
 
-## Integrate with your tools
+### Usage
 
-- [ ] [Set up project integrations](https://baltig.cnr.it/claudio.belotti/parametric-wp2-colab/-/settings/integrations)
+```
+python3 main_parallel.py config_file.json
+```
 
-## Collaborate with your team
+* 
+* 
+* 
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+<!-- AUTHORS -->
 
-## Test and Deploy
+## 👥 Authors <a name="authors"></a>
 
-Use the built-in continuous integration in GitLab.
+👤 **Claudio Belotti**
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+* 📧: [claudio.belotti@cnr.it](mailto:claudio.belotti@cnr.it)
 
-***
+👤 **Lorenzo Pattelli**
 
-# Editing this README
+* 📧: [l.pattelli@inrim.it](mailto:l.pattelli@inrim.it)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+<!-- FUTURE FEATURES -->
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## 🔭 Future Features <a name="future-features"></a>
 
-## Name
-Choose a self-explaining name for your project.
+> Describe 1 - 3 features you will add to the project.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+* [ ] **[new_feature_1]**
+* [ ] **[new_feature_2]**
+* [ ] **[new_feature_3]**
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+<!-- FAQ (optional) -->
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## ❓ FAQ (OPTIONAL) <a name="faq"></a>
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+> Add at least 2 questions new developers would ask when they decide to use your project.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+* **[Question_1]** 
+  * [Answer_1]
+* **[Question_2]** 
+  * [Answer_2]
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+<!-- LICENSE -->
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+## 📝 License <a name="license"></a>
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+This project is [GPL-3.0](./LICENSE) licensed.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+<!-- HISTORY -->
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## 📜 History <a name="history"></a>
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### V0
 
-## License
-For open source projects, say how it is licensed.
+* initial data release to INRIM and University of Lleida, datasetes:
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### V0.1
+
+* added relative humidity at 2m above surface, calculated from ERA5 2m temperature and 2m dewpoint temperature.
+* added ERA5 total cloud cover.
