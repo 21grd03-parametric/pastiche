@@ -1,6 +1,8 @@
 """
-Copyright (C) 2025, Claudio Belotti Consiglio Nazionale delle Ricerche (CNR)
-claudio.belotti@cnr.it
+Copyright (C) 2025
+Claudio Belotti (CNR-INO, Italy), claudio.belotti@cnr.it
+Lorenzo Pattelli (INRiM, Italy), l.pattelli@inrim.it
+
 
     This file is part of Nome-Programma.
 
