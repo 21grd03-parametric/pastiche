@@ -55,13 +55,13 @@ The calculated fluxes therefore, are defined over the (time, latitude, longitude
 
 ### Continental Europe
 
-* France, 21 lats x 21 lons (5.25◦ × 5.25◦), 2019--2023 (60 months),  6-hourly
-* Spain, 21 lats x 21 lons (5.25◦ × 5.25◦), 2019--2023 (60 months),  6-hourly
+* France, 21 lats x 21 lons (5.25° × 5.25°), 2019--2023 (60 months),  6-hourly
+* Spain, 21 lats x 21 lons (5.25° × 5.25°), 2019--2023 (60 months),  6-hourly
 
 ### 2 days over 35 years
 
-* Lleida, Spain 4 data points (i.e. 2 lats x 2 lons), 31 July and 1 Aug 1989–-2023 (70 days), hourly
-* Sesto Fiorentino, Italy 12 data points (i.e. 3 lats x 4 lons), 31 July and 1 Aug 1989–-2023 (70 days), hourly
+* Lleida, Spain 4 data points (i.e. 2 lats x 2 lons), 31 July and 1 Aug 1989–2023 (70 days), hourly
+* Sesto Fiorentino, Italy 12 data points (i.e. 3 lats x 4 lons), 31 July and 1 Aug 1989–2023 (70 days), hourly
 
 ## 🧩 Data Structure <a name="datastructure"></a>
 
@@ -76,7 +76,6 @@ Each netCDF4 file contains the following calculated variables:
 **Note:** fluxes are given overt the whole infrared and the 16 bands, the band limits are defined in the variable "lw_band_limits" the m.u. is cm$^{-1}$ (i.e. the inverse of the wavelength).
 
 The following variables are copied from ERA5 fields:
-**Note: these are for internal use, are we allowed to redistribute?**
 
 * t2m(time, latitude, longitude) "2 metre temperature";
 * skt(time, latitude, longitude) "Skin temperature";
@@ -113,8 +112,6 @@ The following variables are copied from ERA5 fields:
 <!-- GETTING STARTED -->
 
 ## 💻 Getting Started <a name="getting-started"></a>
-
-> Describe how a new developer could make use of your project.
 
 To get a local copy up and running, follow these steps.
 
@@ -177,7 +174,7 @@ This project is [GPL-3.0](./LICENSE) licensed.
 
 ### V0
 
-* initial data release to INRIM and University of Lleida, datasetes:
+* initial data release to INRIM and University of Lleida, datasets:
 
 ### V0.1
 
