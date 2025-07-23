@@ -209,12 +209,7 @@ def nc(
                 [2600, 3250],
             ]
         )  # RRTM band limits
-        scale_factor, add_offset = __compute_scale_and_offset(
-            rrtm_bands.min(), rrtm_bands.max(), 8
-        )
         lw_band_limits.units = "cm**-1"
-        lw_band_limits.scale_factor = scale_factor
-        lw_band_limits.add_offset = add_offset
         lw_band_limits[:] = rrtm_bands
 
         __add_flux_var(
