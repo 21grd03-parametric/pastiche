@@ -1,5 +1,9 @@
+<div align="center" style="margin-top:20px; margin-bottom:20px">
+  <img src="pastiche_logo.svg" alt="PASTICHE: PaRaMetriC Atmospheric Spectral Tool for Irradiance Calculation using Hourly ERA5 data" width="300"/>
+</div>
+
 # PASTICHE
-## The PaRaMetriC Atmospheric Spectral Tool for Irradiance Calculation using Hourly ERA5 data
+**P**aRaMetriC **A**tmospheric **S**pectral **T**ool for **I**rradiance **C**alculation using **H**ourly **E**RA5 data
 
 ### 📗 Table of Contents
 
@@ -33,7 +37,8 @@ The output fluxes are defined over the `time`, `latitude`, `longitude`, and `lw_
 
 ## 🗃️ Available Datasets <a name="available-datasets"></a>
 
-**Note:** If you're unfamiliar with NetCDF format, we recommend NASA’s [Panoply](https://www.giss.nasa.gov/tools/panoply/) to explore, plot, and export the data.
+> [!TIP]
+> If you're unfamiliar with NetCDF format, we recommend NASA’s [Panoply](https://www.giss.nasa.gov/tools/panoply/) to explore, plot, and export the data.
 
 ### TMY
 
@@ -75,7 +80,7 @@ Each NetCDF4 file contains the following calculated variables:
 - `tu(time, latitude, longitude, lw_bands)` – TOA upward longwave radiation flux (W·m⁻²)
 - `r(time, latitude, longitude)` – Relative humidity calculated from 2 m temperature and dewpoint (%)
 
-> **Note:**
+> [!NOTE]
 > - Band 0 contains total infrared flux; bands 1–16 represent spectral subdivisions.
 > - Band limits are stored in `lw_band_limits` (cm⁻¹).
 
@@ -94,13 +99,18 @@ The following fields are copied directly from ERA5:
 - `avg_snswrf`, `avg_snswrfcs` – Time-averaged surface net SW radiation flux
 - `avg_tnlwrf`, `avg_tnlwrfcs` – Time-averaged TOA net LW radiation flux
 
+> [!WARNING]
+> - ERA5 fluxes are accumulated over one hour and normalized by 3600 s. We treat these as instantaneous values centered at _t – 0.5 h_.
+> - ERA5 fluxes correspond to total LW radiation and should be compared to band 0 values from RRTM.
+> - NaN values may appear over sea regions or where RRTM fails (e.g., north-west corner of the France dataset); further investigation is ongoing.
+
 ---
 
 ## ⚠ Use Note and Warning <a name="use-note-and-warning"></a>
 
-1. ERA5 fluxes are accumulated over one hour and normalized by 3600 s. We treat these as instantaneous values centered at _t – 0.5 h_.
-2. ERA5 fluxes correspond to total LW radiation and should be compared to band 0 values from RRTM.
-3. NaN values may appear over sea regions or where RRTM fails (e.g., north-west corner of the France dataset); further investigation is ongoing.
+-
+-
+-
 
 ---
 
