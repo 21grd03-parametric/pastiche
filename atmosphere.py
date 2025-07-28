@@ -24,7 +24,6 @@ Lorenzo Pattelli (INRiM, Italy), l.pattelli@inrim.it
 atmosphere.py
 """
 
-import sys
 import numpy as np
 import convert
 import era5
