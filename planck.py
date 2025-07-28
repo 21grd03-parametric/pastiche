@@ -150,15 +150,15 @@ def __planck_integral(sigma, temperature):
 
     # decide how many terms of sum are needed
 
-    iterations = 2.0 + 20.0/x ;
+    iterations = 2.0 + 20.0/x 
     iterations = iterations if (iterations<512) else 512
     iter = int(iterations)
 
     # add up terms of sum
 
-    sum = 0  ;
+    sum = 0  
     for n in range(1,iter):
-        dn = 1.0/n ;
+        dn = 1.0/n 
         sum  += np.exp(-n*x)*(x3 + (3.0 * x2 + 6.0*(x+dn)*dn)*dn)*dn
 
     # return result, in units of W/m2/sr
