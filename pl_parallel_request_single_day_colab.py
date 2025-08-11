@@ -110,7 +110,7 @@ def pl(d):
         "data_format": "netcdf_legacy",
     }
     target = (
-        f"./wp2/in/era5/{config['label']}/TMY/{month:02}/pl_{year}{month:02}{day:02}.nc"
+        f"./in/era5/{config['label']}/TMY/{month:02}/pl_{year}{month:02}{day:02}.nc"
     )
 
     # do nothing if file was downloaded already
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     config = json.load(open(sys.argv[1]))
     for month in range(1, 13):
-        os.makedirs(f"./wp2/in/era5/{config['label']}/TMY/{month:02}", exist_ok=True)
+        os.makedirs(f"./in/era5/{config['label']}/TMY/{month:02}", exist_ok=True)
 
     dates = config["dates"]
 
