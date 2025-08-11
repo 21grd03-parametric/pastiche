@@ -30,10 +30,10 @@ import datetime
 import cdsapi
 import multiprocessing.dummy
 import json
-from google.colab import userdata
-api_url = userdata.get('cdsapi_url')
-api_key = userdata.get('cdsapi_key')
 
+
+api_url = os.environ.get('CDSAPI_URL')
+api_key = os.environ.get('CDSAPI_KEY')
 
 USE_TMY = True
 ALL_HOURS = [f"{x:02d}:00" for x in range(24)]
