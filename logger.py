@@ -29,7 +29,7 @@ import logging
 from logging import debug, info, warning, error
 from datetime import datetime
 
-FMT_MESSAGE = "%(asctime)s [wp2 %(levelname)7s] %(message)s"
+FMT_MESSAGE = "%(asctime)s [PASTICHE %(levelname)7s] %(message)s"
 FMT_DATETIME = "%Y-%m-%d %H:%M:%S"
 
 # Get default logger.
@@ -47,6 +47,6 @@ logger.addHandler(console)
 
 # Logging to file.
 #
-file = logging.FileHandler(datetime.now().strftime("wp2_%Y%m%d-%H%M%S.log"))
+file = logging.FileHandler(datetime.now().strftime("pastiche_%Y%m%d-%H%M%S.log"))
 file.setFormatter(formatter)
 logger.addHandler(file)
