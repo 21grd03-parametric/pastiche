@@ -106,7 +106,7 @@ def __copy_nc(src, dst):
 def __append_history(src, dst):
     # append history information
     now = datetime.now().astimezone().strftime("%Y-%m-%d %H:%m:%S %Z")
-    history = f"{now} by PaRaMetriC WP2 {VERSION}: export.nc\n"
+    history = f"{now} generated with PASTICHE {VERSION}: export.nc\n"
     history += src.getncattr("history")
     dst.setncattr("history", history)
 
