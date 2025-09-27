@@ -7,15 +7,12 @@
 
 ### 📗 Table of Contents
 
-* [📖 About the Project](#about-project) 
-  * [🗃 Available Datasets](#available-datasets)
-  * [🧩 Data Structure](#data-structure)
-  * [⚠ Use Note and Warning](#use-note-and-warning)
-  * [📚 References](#references)
-* [💻 Getting Started](#getting-started)
+* [📖 About the Project](#about-project)
+* [🗃 Available Datasets](#available-datasets)
+* [🧩 Data Structure](#data-structure)
+* [🚀 Getting Started](#getting-started)
+* [📚 References](#references)
 * [👥 Authors](#authors)
-* [🔭 Future Features](#future-features)
-* [❓ FAQ (OPTIONAL)](#faq)
 * [📝 License](#license)
 * [📜 History](#history)
 
@@ -29,7 +26,7 @@ This repository contains the software used to simulate and evaluate downwelling 
 
 Fluxes are calculated over 16 contiguous longwave (infrared) spectral bands from 3–1000 μm wavelength.
 
-ERA5 data points are defined on a regular latitude–longitude grid at 0.25° resolution and 37 fixed pressure level points.
+ERA5 data points are defined on a regular latitude–longitude grid at 0.25° resolution and 37 fixed pressure levels.
 
 The output fluxes are defined over the `time`, `latitude`, `longitude`, and `lw_bands` dimensions.
 
@@ -106,11 +103,34 @@ The following fields are copied directly from ERA5:
 
 ---
 
-## ⚠ Use Note and Warning <a name="use-note-and-warning"></a>
+## 🚀 Getting Started <a name="getting-started"></a>
 
--
--
--
+For a quick start, check out the interactive **Colab notebook**:
+
+📓 **[RRTM_LW_ERA5_workflow.ipynb](./RRTM_LW_ERA5_workflow.ipynb)**
+
+This notebook guides you through:
+
+- Installing the required packages and dependencies
+- Loading pre-fetched ERA5 data for the Madrid region in June (TMY)
+- Running the RRTM_LW model
+- Producing and plotting longwave irradiance output
+- Setting your API key and prepare user-defined configurations
+
+No local installation needed — everything runs in the cloud.
+
+Otherwise, you can clone the repository locally with:
+
+```bash
+git clone https://github.com/21grd03-parametric/pastiche.git
+cd pastiche
+```
+
+And run a full simulation from a configuration file with:
+
+```bash
+python3 main_parallel.py config_file.json
+```
 
 ---
 
@@ -121,24 +141,6 @@ The following fields are copied directly from ERA5:
 - Beck et al. (2023). *High-resolution Köppen-Geiger maps for 1901–2099 based on constrained CMIP6 projections*. Scientific Data 10, 724.
 
 ---
-
-## 💻 Getting Started <a name="getting-started"></a>
-
-To get a local copy:
-
-```bash
-git clone https://github.com/21grd03-parametric/pastiche.git
-```
-
-### Usage
-
-```bash
-python3 main_parallel.py config_file.json
-```
-
-* 
-* 
-* 
 
 <!-- AUTHORS -->
 
@@ -152,26 +154,7 @@ python3 main_parallel.py config_file.json
 
 * 📧: [l.pattelli@inrim.it](mailto:l.pattelli@inrim.it)
 
-<!-- FUTURE FEATURES -->
-
-## 🔭 Future Features <a name="future-features"></a>
-
-> Describe 1 - 3 features you will add to the project.
-
-* [ ] **[new_feature_1]**
-* [ ] **[new_feature_2]**
-* [ ] **[new_feature_3]**
-
-<!-- FAQ (optional) -->
-
-## ❓ FAQ (OPTIONAL) <a name="faq"></a>
-
-> Add at least 2 questions new developers would ask when they decide to use your project.
-
-* **[Question_1]** 
-  * [Answer_1]
-* **[Question_2]** 
-  * [Answer_2]
+---
 
 <!-- LICENSE -->
 
